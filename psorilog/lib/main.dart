@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'cadastro_paciente_screen.dart';
-import 'cadastro_medico_screen.dart';
-import 'login_geral.dart';
+import 'features/auth/presentation/pages/cadastro_paciente_screen.dart';
+import 'features/auth/presentation/pages/cadastro_medico_screen.dart';
+import 'features/auth/presentation/pages/login_geral.dart';
 
 void main() {
   runApp(const MaterialApp(
