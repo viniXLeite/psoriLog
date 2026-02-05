@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:io'; // Para checar a plataforma
+import 'package:flutter/foundation.dart'; // Para checar se é Web
 
 class ApiClient {
   // Singleton para não abrir múltiplas conexões
@@ -10,9 +12,22 @@ class ApiClient {
   final _storage = const FlutterSecureStorage();
 
   ApiClient._internal() {
+    String baseUrl;
+
+    if (kIsWeb) {
+      // Se for Chrome, usa localhost normal
+      baseUrl = 'http://127.0.0.1:8000/api'; 
+    } else if (Platform.isAndroid) {
+      // Se for Android, usa o IP mágico
+      baseUrl = 'http://10.0.2.2:8000/api'; 
+    } else {
+      // iOS ou outros
+      baseUrl = 'http://127.0.0.1:8000/api';
+    }
+
     dio = Dio(
       BaseOptions(
-        baseUrl: 'http://SEU_IP_LOCAL:8000/api', // Laravel local
+        baseUrl: baseUrl,
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
         headers: {
@@ -36,6 +51,7 @@ class ApiClient {
           }
           
           print("REQ [${options.method}] => ${options.path}");
+          print("PASSO 3: Dio tentando enviar para: ${options.path}"); // <--- CONFIRA ISSO
           return handler.next(options);
         },
         onError: (DioException e, handler) {
