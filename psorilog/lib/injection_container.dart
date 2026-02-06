@@ -5,6 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'core/network/api_client.dart';
 import 'features/auth/data/datasources/auth_remote_datasource.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/daily_log/domain/repositories/daily_log_repository.dart';
+import 'features/daily_log/data/repositories/mock_daily_log_repository.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/presentation/providers/auth_provider.dart';
 
@@ -18,6 +20,11 @@ Future<void> init() async {
   // Repository
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(sl(), sl()), // Passa DataSource e Storage
+  );
+
+  // Para DailyLog (que vamos criar do zero):
+  sl.registerLazySingleton<DailyLogRepository>(
+      () => MockDailyLogRepository() // Usa a classe Mock específica
   );
 
   // Data Sources
