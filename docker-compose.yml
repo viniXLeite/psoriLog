@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context:  .
+      dockerfile: "docker/dockerfile"
+    container_name: laravel_app
+    user: "1000:1000" #Garante que os arquivos serão criados como root
+    ports:
+      - "8078:80"     #HTTP Lembrando que a esquerda é a da máquina e a doreita é a do conteiner
+      - "4443:443"    #HTTPS
+    volumes:
+      - ./:/app       #Monta a raiz do projeto no container
+    environment:
+      WEB_DOCUMENT_ROOT: /app/public
+      PHP_MEMORY_LIMIT: 512M
+      PHP_MAX_EXECUTION_TIME: 300
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: laravel_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:
