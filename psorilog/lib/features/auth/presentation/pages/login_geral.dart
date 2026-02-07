@@ -107,7 +107,7 @@ class _LoginGeralState extends State<LoginGeral> {
                       },
 
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: const Color.fromARGB(255, 133, 216, 225), 
                   // Muda cor se estiver desabilitado
                   disabledBackgroundColor: Colors.red.withOpacity(0.6),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

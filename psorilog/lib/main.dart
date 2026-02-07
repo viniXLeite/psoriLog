@@ -5,6 +5,7 @@ import 'features/auth/presentation/providers/auth_provider.dart';
 import 'features/auth/presentation/pages/cadastro_paciente_screen.dart';
 import 'features/auth/presentation/pages/cadastro_medico_screen.dart';
 import 'features/auth/presentation/pages/login_geral.dart';
+import 'features/auth/presentation/pages/menu_medico.dart';
 
 void main() async {
   // Garante que o motor gráfico iniciou antes de rodar códigos assíncronos
@@ -65,7 +66,7 @@ class HomeScreen extends StatelessWidget {
         height: 55, // ALTURA FIXA para todos
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.redAccent, 
+            backgroundColor: const Color.fromARGB(255, 133, 216, 225), 
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30), // Bordas arredondadas
@@ -88,11 +89,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Cor de fundo padrão
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.health_and_safety, size: 80, color: Colors.cyan),
+            //const Icon(Icons.health_and_safety, size: 80, color: Colors.cyan),
+            Image.asset(
+              'assets/images/psorilog_logo.png', // Caminho do seu arquivo
+              height: 100, // Ajuste o tamanho conforme desejar
+              width: 100,
+            ),
             const SizedBox(height: 20),
             const Text('PsoriLog', style: TextStyle(
                   color: Colors.black,
@@ -105,7 +112,7 @@ class HomeScreen extends StatelessWidget {
             _buildMenuButton(context, "Login", const LoginGeral()),
             _buildMenuButton(context, "Cadastro paciente", const CadastroPacienteScreen()),
             _buildMenuButton(context, "Cadastro médico", const CadastroMedicoScreen()),
-            
+            _buildMenuButton(context, "menu medico", const MenuMedico()),
           ],
         ),
       ),
