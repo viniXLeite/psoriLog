@@ -5,15 +5,15 @@ import 'features/auth/presentation/providers/auth_provider.dart';
 import 'features/auth/presentation/pages/login_geral.dart';
 import 'features/auth/presentation/pages/menu_medico.dart';
 import 'features/auth/presentation/pages/seletor_cadastro.dart';
+import 'features/auth/presentation/pages/cadastro_medico_screen.dart';
+import 'features/daily_log/presentation/providers/daily_log_provider.dart';
 
 void main() async {
   // Garante que o motor gráfico iniciou antes de rodar códigos assíncronos
   WidgetsFlutterBinding.ensureInitialized();
-
   // INICIALIZAÇÃO DA CLEAN ARCHITECTURE
   // Aqui ele cria o Dio, os Repositórios e prepara os Providers na memória
   await di.init(); 
-
   runApp(const PsoriLogApp());
 }
 
@@ -29,8 +29,8 @@ class PsoriLogApp extends StatelessWidget {
         // Usamos o 'di.sl<AuthProvider>()' para pegar a instância pronta do Injection Container
         ChangeNotifierProvider(create: (_) => di.sl<AuthProvider>()),
 
-        // Futuramente, adicionar o DailyLogProvider aqui:
-        // ChangeNotifierProvider(create: (_) => di.sl<DailyLogProvider>()),
+        // Daily Log Provider
+        ChangeNotifierProvider(create: (_) => di.sl<DailyLogProvider>()),
       ],
       child: MaterialApp(
         title: 'PsoriLog',
@@ -38,11 +38,12 @@ class PsoriLogApp extends StatelessWidget {
           primarySwatch: Colors.red,
           useMaterial3: true,
         ),
-        // Defina rotas nomeadas para facilitar a navegação (Opcional, mas recomendado)
+        // Defina rotas nomeadas para facilitar a navegação
         routes: {
           '/': (context) => const HomeScreen(),
           '/login': (context) => const LoginGeral(),
-          '/home': (context) => const HomeScreen(), // Ou sua futura HomeReal
+          '/cadastro_medico': (context) => const CadastroMedicoScreen(),
+          '/menu_medico': (context) => const MenuMedico(),
         },
         initialRoute: '/',
         //home: const HomeScreen(),
@@ -105,10 +106,13 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 32,
                   fontWeight: FontWeight.bold),
             ),
+            const Text('Ambiente de Testes', style: TextStyle(color: Colors.grey)),
             const SizedBox(height: 50),
 
             // botoes padronizados
             _buildMenuButton(context, "Login", const LoginGeral()),
+            //_buildMenuButton(context, "Cadastro Médico", const CadastroMedicoScreen()),
+
             TextButton(
               onPressed: () {
                 // Redireciona para a tela de recuperar senha

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../../domain/entities/usuario.dart';
+import '../../domain/entities/medico.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_datasource.dart';
 import '../../../../core/error/failures.dart';
@@ -55,6 +56,24 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure(e.toString()));
     }
   */
+  }
+
+  @override
+  Future<Either<Failure, Usuario>> cadastrarMedico(Medico medico) async {
+    print("MOCK: Tentando cadastrar médico ${medico.nome} - CRM: ${medico.crm}");
+    
+    await Future.delayed(const Duration(seconds: 2)); // Delay dramático
+    // Simulação de regra de negócio simples
+    if (medico.crm.length < 4) {
+      return const Left(ServerFailure("CRM inválido"));
+    }
+    // Sucesso! Retorna um usuário logado
+    return Right(Usuario(
+      id: "99",
+      nome: medico.nome,
+      email: medico.email,
+      token: "TOKEN_MEDICO_FAKE",
+    ));
   }
 
 }

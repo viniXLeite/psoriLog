@@ -67,8 +67,8 @@ class SeletorCadastro extends StatelessWidget {
             const SizedBox(height: 50),
 
             // botoes padronizados
-            _buildMenuButton(context, "Cadastro paciente", const CadastroPacienteScreen()),
-            _buildMenuButton(context, "Cadastro médico", const CadastroMedicoScreen()),
+            _buildMenuButton(context, "Cadastro Paciente", const CadastroPacienteScreen()),
+            _buildMenuButton(context, "Cadastro Médico", const CadastroMedicoScreen()),
           ],
         ),
       ),

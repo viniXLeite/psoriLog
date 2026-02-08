@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/entities/usuario.dart';
+import '../../domain/entities/medico.dart';
 
 enum AuthStatus { idle, loading, success, error }
 
@@ -38,4 +39,33 @@ class AuthProvider extends ChangeNotifier {
       },
     );
   }
+
+  Future<void> cadastrarMedico({
+    required String nome,
+    required String crm,
+    required String email,
+    required String password,
+  }) async {
+    status = AuthStatus.loading;
+    notifyListeners();
+
+    final novoMedico = Medico(nome: nome, crm: crm, email: email, password: password);
+    
+    // Chama o repositório
+    final result = await repository.cadastrarMedico(novoMedico);
+
+    result.fold(
+      (failure) {
+        status = AuthStatus.error;
+        errorMessage = failure.message;
+        notifyListeners();
+      },
+      (usuarioSucesso) {
+        status = AuthStatus.success;
+        usuario = usuarioSucesso; // Já loga o usuário automaticamente
+        notifyListeners();
+      },
+    );
+  }
+
 }
