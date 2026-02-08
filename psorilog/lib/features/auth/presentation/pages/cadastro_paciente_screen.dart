@@ -51,7 +51,7 @@ class _CadastroPacienteScreenState extends State<CadastroPacienteScreen> {
                   backgroundColor: const Color.fromARGB(255, 133, 216, 225), 
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                 ),
-                child: const Text("Cadastrar", style: TextStyle(color: Colors.white, fontSize: 18)),
+                child: const Text("Cadastrar", style: TextStyle(color: Colors.white, fontSize: 20)),
               ),
             ),
           ],
