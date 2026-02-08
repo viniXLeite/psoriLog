@@ -26,15 +26,11 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           children: [
-            const Text(
-              'Psorilog',
-              style: TextStyle(color: Colors.black, fontSize: 40, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 15),
 
+            const SizedBox(height: 15),
             const Text(
               'Recuperar senha',
-              style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 40),
 
@@ -47,7 +43,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: const Color.fromARGB(255, 133, 216, 225), 
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                 ),
                 child: const Text("Enviar", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),

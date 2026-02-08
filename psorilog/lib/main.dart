@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'injection_container.dart' as di;
 import 'features/auth/presentation/providers/auth_provider.dart';
-import 'features/auth/presentation/pages/cadastro_paciente_screen.dart';
-import 'features/auth/presentation/pages/cadastro_medico_screen.dart';
 import 'features/auth/presentation/pages/login_geral.dart';
 import 'features/auth/presentation/pages/menu_medico.dart';
+import 'features/auth/presentation/pages/seletor_cadastro.dart';
 
 void main() async {
   // Garante que o motor gráfico iniciou antes de rodar códigos assíncronos
@@ -60,7 +59,7 @@ class HomeScreen extends StatelessWidget {
   // Função auxiliar para criar botões idênticos
   Widget _buildMenuButton(BuildContext context, String label, Widget screen) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0), // Espaçamento entre os botões
+      padding: const EdgeInsets.only(bottom: 10.0), // Espaçamento entre os botões
       child: SizedBox(
         width: 250, // LARGURA FIXA para todos
         height: 55, // ALTURA FIXA para todos
@@ -72,7 +71,7 @@ class HomeScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(30), // Bordas arredondadas
             ),
           ),
-          child: Text(label, style: const TextStyle(fontSize: 18)),
+          child: Text(label, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           onPressed: () {
             // Usando rotas nomeadas fica mais limpo -> trocar Widget screen por String routeName
             // Considerar usar Navigator.pushNamed(context, '/login');
@@ -94,25 +93,42 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //const Icon(Icons.health_and_safety, size: 80, color: Colors.cyan),
+            // Imagem do logo
             Image.asset(
               'assets/images/psorilog_logo.png', // Caminho do seu arquivo
-              height: 100, // Ajuste o tamanho conforme desejar
-              width: 100,
+              height: 200, // Ajuste o tamanho conforme desejar
+              width: 200,
             ),
-            const SizedBox(height: 20),
+
             const Text('PsoriLog', style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 40,
+                  color: Color.fromARGB(255, 86, 130, 54),
+                  fontSize: 32,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 80),
+            const SizedBox(height: 50),
 
             // botoes padronizados
             _buildMenuButton(context, "Login", const LoginGeral()),
-            _buildMenuButton(context, "Cadastro paciente", const CadastroPacienteScreen()),
-            _buildMenuButton(context, "Cadastro médico", const CadastroMedicoScreen()),
-            _buildMenuButton(context, "menu medico", const MenuMedico()),
+            TextButton(
+              onPressed: () {
+                // Redireciona para a tela de recuperar senha
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SeletorCadastro()),
+                );
+              },
+              child: const Text(
+                "Cadastrar-se",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Color.fromARGB(255, 33, 50, 21),
+                  decoration: TextDecoration.underline, // Linha embaixo opcional
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+
+            //_buildMenuButton(context, "menu medico", const MenuMedico()),
           ],
         ),
       ),

@@ -36,6 +36,7 @@ class _CadastroMedicoScreenState extends State<CadastroMedicoScreen> {
             _buildInput(label: "CRM"),
             _buildInput(label: "Email"),
             _buildInput(label: "telefone"),
+            _buildInput(label: "senha"),
             Row(
               children: [
                 Checkbox(value: aceitouTermos, onChanged: (v) => setState(() => aceitouTermos = v!)),
@@ -52,7 +53,7 @@ class _CadastroMedicoScreenState extends State<CadastroMedicoScreen> {
                   backgroundColor: const Color.fromARGB(255, 133, 216, 225), 
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                 ),
-                child: const Text("Cadastrar", style: TextStyle(color: Colors.white, fontSize: 18)),
+                child: const Text("Cadastrar", style: TextStyle(color: Colors.white, fontSize: 20)),
               ),
             ),
           ],

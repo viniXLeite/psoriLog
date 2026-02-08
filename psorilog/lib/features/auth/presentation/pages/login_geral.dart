@@ -129,6 +129,7 @@ class _LoginGeralState extends State<LoginGeral> {
 
             const SizedBox(height: 20),
 
+            // Texto para clicável para recuperar senha
             TextButton(
               onPressed: () {
                 // Redireciona para a tela de recuperar senha
@@ -140,7 +141,8 @@ class _LoginGeralState extends State<LoginGeral> {
               child: const Text(
                 "Recuperar senha",
                 style: TextStyle(
-                  color: Colors.black, // Cor azul para parecer um link
+                  fontSize: 18,
+                  color: Color.fromARGB(255, 33, 50, 21), // Cor azul para parecer um link
                   decoration: TextDecoration.underline, // Linha embaixo opcional
                 ),
               ),
