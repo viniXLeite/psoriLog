@@ -35,6 +35,7 @@ class _CadastroPacienteScreenState extends State<CadastroPacienteScreen> {
             _buildInput(label: "CPF"),
             _buildInput(label: "Email"),
             _buildInput(label: "telefone"),
+            _buildInput(label: "senha"),
             Row(
               children: [
                 Checkbox(value: aceitouTermos, onChanged: (v) => setState(() => aceitouTermos = v!)),

@@ -36,6 +36,7 @@ class _CadastroMedicoScreenState extends State<CadastroMedicoScreen> {
             _buildInput(label: "CRM"),
             _buildInput(label: "Email"),
             _buildInput(label: "telefone"),
+            _buildInput(label: "senha"),
             Row(
               children: [
                 Checkbox(value: aceitouTermos, onChanged: (v) => setState(() => aceitouTermos = v!)),
