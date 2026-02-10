@@ -1,6 +1,8 @@
 // cadastro_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:psorilog/features/auth/presentation/pages/menu_medico.dart';
+import 'package:psorilog/features/auth/presentation/pages/menu_usuario.dart';
 import '../providers/auth_provider.dart';
 import 'recuperar_senha.dart';
 
@@ -84,6 +86,7 @@ class _LoginGeralState extends State<LoginGeral> {
 
                 // 4. LÓGICA DO BOTÃO
                 // Se estiver carregando, desabilita o botão (null)
+                /*
                 onPressed: authProvider.status == AuthStatus.loading
                     ? null 
                     : () async {
@@ -105,6 +108,54 @@ class _LoginGeralState extends State<LoginGeral> {
                           // Navigator.pushReplacementNamed(context, '/home'); // Exemplo
                         }
                       },
+                */
+                  onPressed: authProvider.status == AuthStatus.loading
+                      ? null 
+                      : () async {
+                          String email = _emailController.text.trim();
+                          String senha = _passwordController.text.trim();
+
+                          // --- LÓGICA DE LOGIN FALSO (BACKDOOR) ---
+                          if (email == "silva@medico.com" && senha == "12345678") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Acesso Médico Autorizado (Modo Teste)")),
+                            );
+                            
+                            // Redireciona direto para o Menu do Médico
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const MenuMedico()),
+                            );
+                            return; // Para a execução aqui e não chama o provider
+                          }
+                          // ---------------------------------------
+
+                          // --- LÓGICA DE LOGIN FALSO (BACKDOOR) ---
+                          if (email == "jose@email.com" && senha == "12345678") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Acesso Autorizado (Modo Teste)")),
+                            );
+                            
+                            // Redireciona direto para o Menu do usuario
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const MenuUsuario()),
+                            );
+                            return; // Para a execução aqui e não chama o provider
+                          }
+                          // ---------------------------------------
+
+                          // Se não for o login de teste, segue a vida normal:
+                          await authProvider.login(email, senha);
+
+                          if (authProvider.status == AuthStatus.success && context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Bem-vindo de volta!")),
+                            );
+                            // Navigator.pushReplacementNamed(context, '/home');
+                          }
+                        },
+                  
 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 133, 216, 225), 
